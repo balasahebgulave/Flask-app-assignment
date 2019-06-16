@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+
+<style type="text/css">
+	table, th, td {
+  border: 1px solid black;
+}
+</style>
+</head>
+
+<body>
+
+<center>	
+	<h2>Employee DataTable</h2>
+
+<table id="demo">
+	<thead>
+		<tr>
+		<th>emp_name</th>
+		<th>type_code</th>
+		<th>image_url</th>
+		<th>local_path</th>
+		</tr>
+	</thead>
+</table>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#table').dataTable();
+	});
+
+	
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			url:'http://localhost:8008/view/csvdata',
+			method:'post',
+			dataType:'json',
+			success:function(data){
+				console.log(data)
+				$('#demo').dataTable({
+					data:data,
+					columns:[
+					{'data':'emp_name'},
+					{'data':'type_code'},
+					{'data':'image_url'},
+					{'data':'local_path',
+					'render':function(data){
+						link = '<a href="' + data + '">' + data + '</a>';
+						return link
+					}
+					}
+					]
+				})
+			}
+		})
+	})
+</script>
+</body>
+</html>

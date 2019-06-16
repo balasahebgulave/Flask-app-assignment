@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+
+<style type="text/css">
+	table, th, td {
+  border: 1px solid black;
+}
+</style>
+</head>
+<body>
+<center>
+	<h2>Employee Search With Code</h2>
+<form method="post">
+        <div class="col-sm-2">
+        <label>Select Type Code</label>
+
+        <!-- <input type="range" min="0" max="20" id="blue" name='filter'> -->
+        <select class="form-control" name='filter' id = "blue" required>
+            {% for i in result.type_code %}
+            <option required>{{i}}</option>
+            {% endfor %}
+
+        </select> 
+        </div>
+
+
+        <br>
+        <button type="submit" >submit</button>
+</form>
+
+<br><br>
+<table id="table">
+	<thead>
+		<th>emp_name</th>
+		<th>type_code</th>
+		<th>image_url</th>
+		<th>local_path</th>
+	</thead>
+
+	<tbody>
+		<tr>
+		{% for j in result.filterdata %}
+				<td>
+					{{j}}
+				</td>
+		{% endfor %}
+		</tr>
+
+	</tbody>
+
+</table>
+<br>
+{% if result.image %}
+<button><a href="{{result.image}}" download>download image</a></button>
+{% endif %}
+</center>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#table').dataTable();
+	});
+</script>
+
+</body>
+</html>
